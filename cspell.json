@@ -1,0 +1,30 @@
+{
+	"version": "0.2",
+	"ignorePaths": [],
+	"dictionaryDefinitions": [],
+	"dictionaries": [],
+	"words": [
+		"airbnb",
+		"commitlint",
+		"dompurify",
+		"esnext",
+		"fftemplate",
+		"Formik",
+		"gluestack",
+		"hookform",
+		"keychain",
+		"lockb",
+		"netinfo",
+		"Passcode",
+		"Pressable",
+		"reduxjs",
+		"Sucuzhañay",
+		"swipeable",
+		"Swipeable",
+		"tanstack",
+		"ulidx",
+		"whatsapp"
+	],
+	"ignoreWords": [],
+	"import": []
+}
