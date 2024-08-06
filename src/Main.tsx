@@ -12,7 +12,7 @@
  * @license For license details, see [License](https://github.com/wilodev/wilodev-expo-app/-/raw/develop/LICENSE.md)
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { AppState, useColorScheme } from 'react-native';
 
@@ -24,24 +24,22 @@ import { StatusBar } from 'expo-status-bar';
 import { OnboardingScreen } from '@/init/screens/OnboardingScreen';
 import { Box } from '@/ui/Box';
 
-import { initConfig } from './core/config/initConfig';
+import { useInitConfig } from './core/config/useInitConfig';
+import { AppNavigator } from './navigation';
 import { getSafeAreaProviderStyles } from './shared/theme/utils/stylesUtils';
-import { useAppDispatch } from './state/hook';
 
 // Main component: the root component for the application.
 export function Main(): React.JSX.Element {
-	// Dispatch function for Redux actions.
-	const dispatch = useAppDispatch();
-	// Indicates whether the application has been initialized.
-	const [isReady, setIsReady] = useState<boolean>(false);
 	// Detects the color scheme (dark or light) for theme purposes.
 	const isDarkMode = useColorScheme() === 'dark';
 	// Retrieves the appropriate style for the safe area based on the theme.
 	const safeAreaStyles = getSafeAreaProviderStyles(isDarkMode);
 	// Initializes the application.
-	const initializeApp = useCallback(async () => {
-		const { state, actions } = await initConfig({ dispatch });
-		setIsReady(state);
+	const {
+		state: { isReady, showOnboarding, error },
+		actions,
+	} = useInitConfig();
+	useEffect(() => {
 		if (actions?.onAppStateChange) {
 			const subscription = AppState.addEventListener(
 				'change',
@@ -49,21 +47,19 @@ export function Main(): React.JSX.Element {
 			);
 			return () => subscription.remove();
 		}
-	}, [dispatch]);
-
-	useEffect(() => {
-		initializeApp();
-	}, [initializeApp]);
+	}, [actions]);
 
 	if (!isReady) {
 		return <Box bg={'$backgroundLight'} $dark-bg={'$backgroundDark'} />;
+	}
+	if (error) {
+		return <Box>{error.message}</Box>;
 	}
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
 			<SafeAreaProvider style={safeAreaStyles}>
 				<StatusBar style="auto" />
-				<OnboardingScreen />
-				{/* <AppNavigator /> */}
+				{showOnboarding ? <OnboardingScreen /> : <AppNavigator />}
 			</SafeAreaProvider>
 		</GestureHandlerRootView>
 	);

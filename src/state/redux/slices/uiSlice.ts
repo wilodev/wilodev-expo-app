@@ -22,7 +22,6 @@ interface UIState {
 		message: string;
 		title: string;
 	};
-	language: string;
 }
 
 const initialState: UIState = {
@@ -31,7 +30,6 @@ const initialState: UIState = {
 		message: '',
 		title: '',
 	},
-	language: 'es',
 };
 
 const uiSlice = createSlice({
@@ -51,16 +49,15 @@ const uiSlice = createSlice({
 				title: '',
 			};
 		},
-		setLanguage(state, action: PayloadAction<string>) {
-			state.language = action.payload;
-		},
 	},
 });
 
-export const { setLoading, setError, setClearError, setLanguage } =
-	uiSlice.actions;
+export const { setLoading, setError, setClearError } = uiSlice.actions;
 
-// Return selector for all notifications
+// Return selector for Error and ClearError states
 export const selectError = (state: AppState) => state.ui.error;
+export const selectClearError = (state: AppState) => state.ui.error;
+// Return selector for Loading state
+export const selectLoading = (state: AppState) => state.ui.loading;
 
 export default uiSlice.reducer;

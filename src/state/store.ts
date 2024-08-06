@@ -14,6 +14,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from './redux/slices/authSlice';
+import initAppReducer from './redux/slices/initAppSlice';
 import notificationsReducer from './redux/slices/notificationsSlice';
 import uiReducer from './redux/slices/uiSlice';
 
@@ -22,6 +23,7 @@ export const store = configureStore({
 		ui: uiReducer, // Integrating the UI slice reducer.
 		auth: authReducer, // Integrating the Auth slice reducer.
 		notifications: notificationsReducer, // Integrating the notifications slice reducer.
+		initApp: initAppReducer, // Integrating the InitApp slice reducer.
 	},
 });
 
