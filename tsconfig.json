@@ -1,6 +1,53 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "strict": true
-  }
+	"extends": "expo/tsconfig.base",
+	"compilerOptions": {
+		"strict": true,
+		"module": "esnext",
+		"baseUrl": "./",
+		"paths": {
+			// Common modules such as assets, shared, state
+			"@/assets/*": ["assets/*"], // Folder where resources such as images, icons, etc. are stored.
+			"@/components/*": ["src/shared/components/*"], // Folder where components are stored.
+			"@/config/*": ["src/core/config/*"], // Folder where the configuration files are stored.
+			"@/coreTypes/*": ["src/core/types/*"], // Folder where the configuration files are stored.
+			"@/database/*": ["src/core/database/*"], // Folder where the database files are stored.
+			"@/errors/*": ["src/core/errors/*"], // Folder where the error files are stored.
+			"@/hooks/*": ["src/core/hooks/*"], // Folder where the error files are stored.
+			"@/interfaces/*": ["src/shared/interfaces/*"], // Folder where the interfaces are stored.
+			"@/layouts/*": ["src/shared/layouts/*"], // Folder where the layouts are stored.
+			"@/lib/*": ["src/core/lib/*"], // Folder where the libraries are stored.
+			"@/locales/*": ["src/core/locales/*"], // Folder where the config translations are stored.
+			"@/providers/*": ["src/core/providers/*"], // Folder where the providers are stored.
+			"@/navigation/*": ["src/navigation/*"], // Folder where the navigation files are stored.
+			"@/models/*": ["src/core/models/*"], // Folder where the models are stored.
+			"@/repositories/*": ["src/core/repositories/*"], // Folder where the repositories are stored.
+			"@/services/*": ["src/core/services/*"], // Folder where the services are stored.
+			"@/shared/*": ["src/shared/*"], // Folder where the folders or files used throughout the application are stored.
+			"@/state/*": ["src/state/*"], // Folder where redux files, sagas, etc. are stored.
+			"@/theme/*": ["src/shared/theme/*"], // Folder where the theme files are stored.
+			"@/sharedTypes/*": ["src/shared/types/*"], // Folder where the types are stored.
+			"@/ui/*": ["src/shared/ui/*"], // Folder where user interface components are stored.
+			// Modules or applications, Each new application must be registered here
+			"@/acl/*": ["src/apps/acl/*"],
+			"@/authenticated/*": ["src/apps/authenticated/*"],
+			"@/commons/*": ["src/apps/commons/*"],
+			"@/init/*": ["src/apps/init/*"]
+			// Note: Remember that you must do the same in babel.config.js
+		}
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"react-native-reanimated.d.ts",
+		"App.tsx",
+		"src/shared/types/**/*.d.ts",
+		"src/shared/theme/*.d.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"babel.config.js",
+		"metro.config.js",
+		"jest.config.js",
+		"jest.setup.ts"
+	]
 }
